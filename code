@@ -1,0 +1,56 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/04/Mult.asm
+
+// Multiplies R0 and R1 and stores the result in R2.
+// (R0, R1, R2 refer to RAM[0], RAM[1], and RAM[2], respectively.)
+//
+// This program only needs to handle arguments that satisfy
+// R0 >= 0, R1 >= 0, and R0*R1 < 32768.
+
+// Put your code here.
+
+@R2
+M=0
+// Initialises R2 to 0.
+
+@R0
+D=M
+@LOOP
+D;JGT
+// If R0 > 0 then Jump to first loop.
+
+@END
+0;JMP
+// If no jump was performed, procede to the END.
+// This is done as we know that the answer in R2 will be 0.
+
+// Adds R1 to R2 and subtracts 1 from R0.
+// If R0 > 0 then the program loop again.
+// Once R0 is not more than 0 the looping has finished.
+(LOOP)
+  @R2
+  D=M
+  // Get R2.
+
+  @R1
+  D=D+M
+  // Add R1 to R2.
+
+  @R2
+  M=D
+  // Send the calculation into R2
+
+  @R0
+  D=M-1
+  M=D
+  // Decremend R0 by 1 / Increment R0 by -1.
+
+  @LOOP
+  D;JGT
+  // If R0 > 0 then loop again.
+
+(END)
+  @END
+  0;JMP
